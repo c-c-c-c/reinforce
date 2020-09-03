@@ -1,0 +1,18 @@
+version: "2.4"
+services:
+    notebook:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        runtime: nvidia
+        environment: 
+            - NVIDIA_VISIBLE_DEVICES=all
+            - CUDA_VISIBLE_DEVICES=7
+            - NVIDIA_DRIVER_CAPABILITIES=all
+        image: reinforcelearning_tensorflow
+        container_name: reinforcelearning_tensorflow
+        ports:
+            - "9006:8888"
+        volumes:
+            - ${HOME}/RL_Book6/:/tf/rl_book
+        command: jupyter notebook --ip=0.0.0.0 --allow-root --no-browser --NotebookApp.token=''
